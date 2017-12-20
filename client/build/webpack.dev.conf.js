@@ -9,8 +9,8 @@ const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin')
 const portfinder = require('portfinder')
 
 const HOST = process.env.HOST
-const PORT = process.env.PORT && Number(process.env.PORT)
-//const PORT = 5050
+//const PORT = process.env.PORT && Number(process.env.PORT)
+const PORT = 5050
 
 const devWebpackConfig = merge(baseWebpackConfig, {
   module: {
@@ -55,7 +55,7 @@ const devWebpackConfig = merge(baseWebpackConfig, {
 });
 
 module.exports = new Promise((resolve, reject) => {
-  portfinder.basePort = process.env.PORT || config.dev.port
+  portfinder.basePort = PORT //process.env.PORT || config.dev.port
   portfinder.getPort((err, port) => {
     if (err) {
       reject(err)
