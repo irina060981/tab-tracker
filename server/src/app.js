@@ -15,18 +15,20 @@ from which the first resource was served. A web page may freely embed cross-orig
 const cors = require('cors')
 const morgan = require('morgan') // HTTP request logger middleware for node.js
 
+// работа с SQLDB
+const {sequelize} = require('./models')
+const config = require('./config/config')
+
 const app = express()
 
 app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
-const PORT = 5051
+require('./routes')(app)
 
-app.post('/register', (req, res) => {
-  res.send({
-    message: `Hello, ${req.body.email}! Your user was registered! Have fun!`
+sequelize.sync() // сначала подключаемся к DB а потом запускаем сервер
+  .then(() => {
+    app.listen(config.port)
+    console.log(`Server started on port ${config.port} `)
   })
-})
-
-app.listen(PORT)
