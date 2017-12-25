@@ -1,5 +1,15 @@
 const {User} = require('../models')
 
+const jwt = require('jsonwebtoken')
+const config = require('../config/config')
+
+function jwtSignUser (user) {
+  const ONE_WEEK = 60 * 60 * 24 * 7
+  return jwt.sign(user, config.authentication.jwtSecret, {
+    expiresIn: ONE_WEEK
+  })
+}
+
 module.exports = {
   async register (req, res) {
     try {
@@ -38,7 +48,10 @@ module.exports = {
 
       const userJSON = user.toJSON()
 
-      res.send({ user: userJSON })
+      res.send({
+        user: userJSON,
+        token: jwtSignUser(userJSON)
+      })
     } catch (err) {
       // email already exists
       res.status(500).send({
