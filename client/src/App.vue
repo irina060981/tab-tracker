@@ -1,9 +1,4 @@
 <template>
-<!--   <div id="app" class="theme--light theme--green">
-    <page-header />
-    <router-view/>
-  </div> -->
-
   <div id="app" class="theme--green fixed-toolbar">
     <v-app>
       <v-content>
@@ -28,6 +23,8 @@ export default {
 </script>
 
 <style>
+@import url('https://fonts.googleapis.com/css?family=Material+Icons');
+
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;

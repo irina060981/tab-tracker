@@ -8,19 +8,25 @@
         </v-toolbar>
 
         <div class="pl-4 pr-4 pt-2 pb-2">
+          <form name="tab-tracker-form" autocomplete="off">
            <v-text-field
               name="email"
               label="Email"
               v-model="email"
             ></v-text-field>
 
-            <v-text-field
+           <v-text-field
               name="password"
-              label="Password"
+              label="Enter your password"
+              hint="At least 8 characters"
               v-model="password"
-              type="password"
+              min="8"
+              :append-icon="e1 ? 'visibility' : 'visibility_off'"
+              :append-icon-cb="() => (e1 = !e1)"
+              :type="e1 ? 'text' : 'password'"
+              counter
             ></v-text-field>
-
+          </form>
           <div class="error" v-html="error"></div>
           <p><v-btn class="green" dark @click="login">Login</v-btn></p>
         </div>
@@ -39,7 +45,8 @@ export default {
     return {
       email: '',
       password: '',
-      error: null
+      error: null,
+      e1: false
     }
   },
   methods: {

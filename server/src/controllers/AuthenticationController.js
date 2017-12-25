@@ -14,16 +14,18 @@ module.exports = {
   async register (req, res) {
     try {
       const user = await User.create(req.body)
-      res.send(user.toJSON())
+      const userJSON = user.toJSON()
+
+      res.send({
+        user: userJSON,
+        token: jwtSignUser(userJSON)
+      })
     } catch (err) {
       // email already exists
       res.status(400).send({
         error: 'This email account is already in use'
       })
     }
-    res.send({
-      message: `Hello, ${req.body.email}! Your user was registered! Have fun!`
-    })
   },
   async login (req, res) {
     try {
@@ -40,8 +42,6 @@ module.exports = {
       }
 
       const isPasswordValid = await user.comparePassword(password)
-      console.log('isPasswordValid', isPasswordValid)
-      console.log('*****************************************')
 
       if (!isPasswordValid) {
         return res.status(403).send({
