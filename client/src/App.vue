@@ -1,12 +1,29 @@
 <template>
-  <div id="app">
+<!--   <div id="app" class="theme--light theme--green">
+    <page-header />
     <router-view/>
+  </div> -->
+
+  <div id="app" class="theme--green fixed-toolbar">
+    <v-app>
+      <v-content>
+        <v-container>
+          <page-header />
+          <router-view/>
+        </v-container>
+      </v-content>
+    </v-app>
   </div>
+
 </template>
 
 <script>
+
+import PageHeader from '@/components/Header'
+
 export default {
-  name: 'app'
+  name: 'app',
+  components: { PageHeader }
 }
 </script>
 
@@ -20,12 +37,15 @@ export default {
   margin-top: 60px;
 }
 
-.theme--green .toolbar__title, .theme--green .btn__content {
-  color: #f0f0f0;
-}
- 
 .theme--green .input-group__details:after {
   background-color: #4caf50!important;
 }
 
+.fixed-toolbar .application--wrap {
+  margin-top: -60px;
+}
+
+.fixed-toolbar .content--wrap {
+  margin-top: 60px;
+}
 </style>

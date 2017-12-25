@@ -1,10 +1,10 @@
 <template>
   <v-layout column>
     <v-flex xs10 sm6 md4 offset-xs1 offset-sm3 offset-md4>
-      <div class = "white elevation-2 theme--light theme--green">
+      <div class = "white elevation-2 registerForm">
 
         <v-toolbar flat dense class="green" dark>
-          <v-toolbar-title>Register</v-toolbar-title>
+          <v-toolbar-title dark>Register</v-toolbar-title>
         </v-toolbar>
 
         <div class="pl-4 pr-4 pt-2 pb-2">
@@ -22,7 +22,7 @@
             ></v-text-field>
 
           <div class="error" v-html="error"></div>
-          <p><v-btn class="green" @click="register">Register</v-btn></p>
+          <p><v-btn class="green" dark @click="register">Register</v-btn></p>
         </div>
 
       </div>
@@ -72,5 +72,9 @@ export default {
 <style scoped>
   .error {
     color: #dd0000;
+  }
+
+  .registerForm {
+    margin-top: 50px;
   }
 </style>
