@@ -11,6 +11,7 @@
 		<v-spacer></v-spacer>
 
 		<v-toolbar-items>
+			<v-btn :to="{name: 'login'}" flat>Login</v-btn>
 			<v-btn :to="{name: 'register'}" flat>Sign up</v-btn>
 		</v-toolbar-items>
 	</v-toolbar>

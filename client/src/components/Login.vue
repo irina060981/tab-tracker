@@ -4,7 +4,7 @@
       <div class = "white elevation-2 registerForm">
 
         <v-toolbar flat dense class="green" dark>
-          <v-toolbar-title dark>Register</v-toolbar-title>
+          <v-toolbar-title dark>Login</v-toolbar-title>
         </v-toolbar>
 
         <div class="pl-4 pr-4 pt-2 pb-2">
@@ -22,7 +22,7 @@
             ></v-text-field>
 
           <div class="error" v-html="error"></div>
-          <p><v-btn class="green" dark @click="register">Register</v-btn></p>
+          <p><v-btn class="green" dark @click="login">Login</v-btn></p>
         </div>
 
       </div>
@@ -43,9 +43,9 @@ export default {
     }
   },
   methods: {
-    async register () {
+    async login () {
       try {
-        await AuthenticationService.register({
+        await AuthenticationService.login({
           email: this.email,
           password: this.password
         })
@@ -54,18 +54,6 @@ export default {
       }
     }
   }
-  // здесь мы ставим контроль за изменением свойства e-mail (так как v-model то изменение отслеживается в обе стороны, через форму на сайте и через код здесь (см. mounted))
-  // watch: {
-  //   email (value) {
-  //     console.log('email changed to ', value)
-  //   }
-  // },
-  // здесь задали поведение дополнительное - Called after the instance has been mounted
-  // mounted () {
-  //   setTimeout(() => {
-  //     this.email = 'hello!'
-  //   }, 2000)
-  // }
 }
 </script>
 
