@@ -1,12 +1,7 @@
 <template>
   <v-layout column>
-    <v-flex xs10 sm8 md6 offset-xs1 offset-sm2 offset-md3>
-      <div class = "white elevation-2 registerForm">
-
-        <v-toolbar flat dense class="green" dark>
-          <v-toolbar-title dark>Register</v-toolbar-title>
-        </v-toolbar>
-
+    <v-flex xs10 sm8 md6 lg4 offset-xs1 offset-sm2 offset-md3 offset-lg4>
+      <panel title="Register" addClass="registerForm">
         <div class="pl-4 pr-4 pt-2 pb-2">
           <form name="tab-tracker-form" autocomplete="off">
            <v-text-field
@@ -30,8 +25,8 @@
           <div class="error" v-html="error"></div>
           <p><v-btn class="green" dark @click="register">Register</v-btn></p>
         </div>
+      </panel>
 
-      </div>
     </v-flex>
   </v-layout>
 </template>
@@ -39,6 +34,7 @@
 <script>
 
 import AuthenticationService from '@/services/AuthenticationService'
+import Panel from '@/components/Panel'
 
 export default {
   data () {
@@ -48,6 +44,9 @@ export default {
       error: null,
       e1: false
     }
+  },
+  components: {
+    Panel
   },
   methods: {
     async register () {
@@ -63,18 +62,6 @@ export default {
       }
     }
   }
-  // здесь мы ставим контроль за изменением свойства e-mail (так как v-model то изменение отслеживается в обе стороны, через форму на сайте и через код здесь (см. mounted))
-  // watch: {
-  //   email (value) {
-  //     console.log('email changed to ', value)
-  //   }
-  // },
-  // здесь задали поведение дополнительное - Called after the instance has been mounted
-  // mounted () {
-  //   setTimeout(() => {
-  //     this.email = 'hello!'
-  //   }, 2000)
-  // }
 }
 </script>
 

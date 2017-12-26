@@ -5,7 +5,7 @@
 		</v-toolbar-title>
 
 		<v-toolbar-items>
-			<v-btn flat>Browse</v-btn>
+			<v-btn flat :to="{name: 'songs'}" v-if="$store.state.isUserLoggedIn">Browse</v-btn>
 		</v-toolbar-items>
 
 		<v-spacer></v-spacer>
@@ -25,7 +25,6 @@ export default {
     logout () {
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setUser', null)
-      // TODO: redirect to home page
       this.$router.push({
         name: 'home'
       })

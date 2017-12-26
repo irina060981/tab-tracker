@@ -1,12 +1,7 @@
 <template>
   <v-layout column>
     <v-flex xs10 sm8 md6 lg4 offset-xs1 offset-sm2 offset-md3 offset-lg4>
-      <div class = "white elevation-2 registerForm">
-
-        <v-toolbar flat dense class="green" dark>
-          <v-toolbar-title dark>Login</v-toolbar-title>
-        </v-toolbar>
-
+      <panel title="Login" addClass="loginForm">
         <div class="pl-4 pr-4 pt-2 pb-2">
           <form name="tab-tracker-form" autocomplete="off">
            <v-text-field
@@ -31,7 +26,7 @@
           <p><v-btn class="green" dark @click="login">Login</v-btn></p>
         </div>
 
-      </div>
+      </panel>
     </v-flex>
   </v-layout>
 </template>
@@ -39,6 +34,7 @@
 <script>
 
 import AuthenticationService from '@/services/AuthenticationService'
+import Panel from '@/components/Panel'
 
 export default {
   data () {
@@ -48,6 +44,9 @@ export default {
       error: null,
       e1: false
     }
+  },
+  components: {
+    Panel
   },
   methods: {
     async login () {
@@ -71,7 +70,7 @@ export default {
     color: #dd0000;
   }
 
-  .registerForm {
+  .loginForm {
     margin-top: 50px;
   }
 </style>
