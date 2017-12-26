@@ -1,6 +1,6 @@
 <template>
   <v-layout column>
-    <v-flex xs10 sm8 md6 offset-xs1 offset-sm2 offset-md3>
+    <v-flex xs10 sm8 md6 lg4 offset-xs1 offset-sm2 offset-md3 offset-lg4>
       <div class = "white elevation-2 registerForm">
 
         <v-toolbar flat dense class="green" dark>
@@ -52,10 +52,12 @@ export default {
   methods: {
     async login () {
       try {
-        await AuthenticationService.login({
+        const response = await AuthenticationService.login({
           email: this.email,
           password: this.password
         })
+        this.$store.dispatch('setToken', response.data.token)
+        this.$store.dispatch('setUser', response.data.user)
       } catch (error) {
         this.error = error.response.data.error
       }

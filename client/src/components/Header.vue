@@ -11,15 +11,26 @@
 		<v-spacer></v-spacer>
 
 		<v-toolbar-items>
-			<v-btn :to="{name: 'login'}" flat>Login</v-btn>
-			<v-btn :to="{name: 'register'}" flat>Sign up</v-btn>
+			<v-btn :to="{name: 'login'}" flat v-if="!$store.state.isUserLoggedIn" >Login</v-btn>
+			<v-btn :to="{name: 'register'}" flat v-if="!$store.state.isUserLoggedIn" >Sign up</v-btn>
+			<v-btn @click="logout" flat v-if="$store.state.isUserLoggedIn" >Log out</v-btn>
 		</v-toolbar-items>
 	</v-toolbar>
 </template>
 
 <script>
 export default {
-  name: 'PageHeader'
+  name: 'PageHeader',
+  methods: {
+    logout () {
+      this.$store.dispatch('setToken', null)
+      this.$store.dispatch('setUser', null)
+      // TODO: redirect to home page
+      this.$router.push({
+        name: 'home'
+      })
+    }
+  }
 }
 </script>
 
