@@ -9,9 +9,21 @@
         </v-btn>
 
         <div v-for="song in songs" :key="song.id">
-          {{ song.title }} -
-          {{ song.artist }} -
-          {{ song.album }}
+
+          <v-layout row class="song" v-if="song.title !== null">
+            <v-flex xs6>
+              <div class="song-title">{{song.title}}</div>
+              <div class="song-artist">{{song.artist}}</div>
+              <div class="song-genre">{{song.genre}}</div>
+              <p><v-btn class="green" dark :to="{name: 'song-view', params: {songId: song.id}}">View</v-btn></p>
+            </v-flex>
+
+            <v-flex xs6>
+              <img class="album-image" :src="song.albumImage">
+            </v-flex>
+
+          </v-layout>
+
         </div>
       </panel>
 
@@ -31,13 +43,6 @@ export default {
   data () {
     return {
       songs: null
-      // songs: [
-      //   {
-      //     title: 'Float On',
-      //     artist: 'Modest Mouse',
-      //     album: 'Good News for People Who Love Bad News'
-      //   }
-      // ]
     }
   },
   async mounted () {
@@ -47,5 +52,27 @@ export default {
 </script>
 
 <style scoped>
+  .song {
+    padding: 20px 0;
+    height: 330px;
+    overflow: hidden;
+  }
 
+  .song > div {
+    overflow: hidden;
+  }
+
+  .album-image {
+    width: 70%;
+    margin: 0 auto;
+  }
+  .song-title {
+    font-size: 30px;
+  }
+  .song-artist {
+    font-size: 24px;
+  }
+  .song-genre {
+    font-size: 18px;
+  } 
 </style>
