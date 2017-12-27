@@ -17,9 +17,6 @@ module.exports = {
   async post (req, res) {
     try {
       const song = await Song.create(req.body)
-      console.log('*************************************************')
-      console.log('song', song)
-      console.log('*************************************************')
       res.send(song)
     } catch (err) {
       res.status(500).send({
