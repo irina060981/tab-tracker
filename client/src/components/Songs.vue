@@ -3,6 +3,11 @@
     <v-flex xs10 offset-xs1>
 
       <panel title="Songs">
+
+        <v-btn fab dark small absolute right class="green accent-2" :to="{name: 'songs-create'}" slot="action">
+          <v-icon>add</v-icon>
+        </v-btn>
+
         <div v-for="song in songs" :key="song.id">
           {{ song.title }} -
           {{ song.artist }} -
