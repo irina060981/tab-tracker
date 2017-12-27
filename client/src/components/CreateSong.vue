@@ -9,12 +9,16 @@
                 name="title"
                 label="title"
                 v-model="song.title"
+                required
+                :rules="rules.required"
               ></v-text-field>
 
              <v-text-field
                 name="artist"
                 label="artist"
                 v-model="song.artist"
+                required
+                :rules="rules.required"                
               ></v-text-field>
 
              <v-text-field
@@ -27,6 +31,8 @@
                 name="album"
                 label="album"
                 v-model="song.album"
+                required
+                :rules="rules.required"
               ></v-text-field>
 
              <v-text-field
@@ -60,7 +66,7 @@
             v-model="song.tab"
             multi-line
           ></v-text-field>
-
+          <div class="error" v-html="error"></div>
           <p><v-btn class="green" dark @click="create">Create</v-btn></p>
         </div>
       </panel>
@@ -89,18 +95,35 @@ export default {
         youtubeId: null,
         lyrics: null,
         tab: null
-      }
+      },
+      rules: {
+        required: [(value) => !!value || 'The field is required!']
+      },
+      error: null
     }
   },
   methods: {
     async create () {
-      try {
-        await SongsService.post(this.song)
-        this.$router.push({
-          name: 'songs'
-        })
-      } catch (error) {
-        this.error = error.response.data.error
+      this.error = null
+      const requiredKeys = ['title', 'artist', 'album']
+      const areAllRequiredFieldsFilledIn = Object.keys(this.song).every(function (key) {
+        if (requiredKeys.indexOf(key) > -1 && this[key] == null) {
+          return false
+        }
+        return true
+      }, this.song)
+
+      if (!areAllRequiredFieldsFilledIn) {
+        this.error = 'Please fill in all required fields'
+      } else {
+        try {
+          await SongsService.post(this.song)
+          this.$router.push({
+            name: 'songs'
+          })
+        } catch (error) {
+          this.error = error.response.data.error
+        }
       }
     }
   }
@@ -108,5 +131,8 @@ export default {
 </script>
 
 <style scoped>
-
+  .error {
+    color: #dd0000 !important;
+    background-color: transparent !important;
+  }
 </style>
