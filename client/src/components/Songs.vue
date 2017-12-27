@@ -3,7 +3,11 @@
     <v-flex xs10 offset-xs1>
 
       <panel title="Songs">
-        
+        <div v-for="song in songs" :key="song.id">
+          {{ song.title }} -
+          {{ song.artist }} -
+          {{ song.album }}
+        </div>
       </panel>
 
     </v-flex>
@@ -12,11 +16,27 @@
 
 <script>
 
+import SongsService from '@/services/SongsService'
 import Panel from '@/components/Panel'
 
 export default {
   components: {
     Panel
+  },
+  data () {
+    return {
+      songs: null
+      // songs: [
+      //   {
+      //     title: 'Float On',
+      //     artist: 'Modest Mouse',
+      //     album: 'Good News for People Who Love Bad News'
+      //   }
+      // ]
+    }
+  },
+  async mounted () {
+    this.songs = (await SongsService.index()).data
   }
 }
 </script>

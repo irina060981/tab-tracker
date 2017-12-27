@@ -27,7 +27,7 @@ app.use(cors())
 
 require('./routes')(app)
 
-sequelize.sync() // сначала подключаемся к DB а потом запускаем сервер, sequelize.sync({force: true})  - это принудительная очистка
+sequelize.sync({force: true}) // сначала подключаемся к DB а потом запускаем сервер, sequelize.sync({force: true})  - это принудительная очистка
   .then(() => {
     app.listen(config.port)
     console.log(`Server started on port ${config.port} `)
