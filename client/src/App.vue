@@ -2,7 +2,7 @@
   <div id="app" class="theme--green fixed-toolbar">
     <v-app>
       <v-content>
-        <v-container>
+        <v-container fluid>
           <page-header />
           <router-view/>
         </v-container>
