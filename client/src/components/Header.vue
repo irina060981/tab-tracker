@@ -1,7 +1,7 @@
 <template>
 	<v-toolbar fixed class="green" dark>
 		<v-toolbar-title class="mr-4 mt-0">
-			<router-link :to="{name: 'home'}">TabTracker</router-link>
+			TabTracker
 		</v-toolbar-title>
 
 		<v-toolbar-items>
@@ -26,7 +26,7 @@ export default {
       this.$store.dispatch('setToken', null)
       this.$store.dispatch('setUser', null)
       this.$router.push({
-        name: 'home'
+        name: 'songs'
       })
     }
   }
