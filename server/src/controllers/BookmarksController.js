@@ -22,11 +22,22 @@ module.exports = {
   },
   async post (req, res) {
     try {
-      const bookmark = await Bookmark.create({
-        UserId: parseInt(req.body.UserId),
-        SongId: parseInt(req.body.SongId)
+      const {UserId, SongId} = req.body
+      const checkBookmark = await Bookmark.findOne({
+        where: {
+          SongId: SongId,
+          UserId: UserId
+        }
       })
-      res.send(bookmark)
+      if (!checkBookmark) {
+        const bookmark = await Bookmark.create({
+          UserId: UserId,
+          SongId: SongId
+        })
+        res.send(bookmark)
+      } else {
+        res.send(checkBookmark)
+      }
     } catch (err) {
       res.status(500).send({
         error: 'An error has occured trying to create the bookmark'
