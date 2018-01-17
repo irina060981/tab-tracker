@@ -62,7 +62,7 @@
             SongId: this.song.id, UserId: this.$store.state.user.id
           })).data
           this.bookmark = bookmark
-          console.log('bookmark - ', bookmark)
+          // console.log('bookmark - ', bookmark)
         } catch (err) {
           console.log(err)
         }
