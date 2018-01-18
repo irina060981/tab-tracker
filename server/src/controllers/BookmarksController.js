@@ -1,5 +1,6 @@
-const {Bookmark} = require('../models')
+const {Bookmark, Song} = require('../models')
 
+const _ = require('lodash')
 module.exports = {
   async index (req, res) {
     try {
@@ -12,8 +13,26 @@ module.exports = {
             UserId: userId
           }
         })
+        bookmark = bookmark || false
+      } else if (userId) {
+        bookmark = await Bookmark.findAll({
+          where: {
+            UserId: userId
+          },
+          include: [
+            {
+              model: Song
+            }
+          ]
+        })
+          .map(bookmark => bookmark.toJSON())
+          .map(bookmark => _.extend({
+            bookmarkId: bookmark.id
+          }, bookmark.Song))
+
+        bookmark = bookmark || []
       }
-      res.send(bookmark || false)
+      res.send(bookmark)
     } catch (err) {
       res.status(500).send({
         error: 'An error has occured trying to fetched bookmarks'
@@ -46,15 +65,15 @@ module.exports = {
   },
   async delete (req, res) {
     try {
-      // console.log('********************************')
-      // console.log('req.body', req.body)
-      // console.log('id', parseInt(req.body.id))
+      console.log('********************************')
+      console.log('req.body', req.body)
+      console.log('id', parseInt(req.body.id))
 
       const bookmark = await Bookmark.findById(req.body.id)
       await bookmark.destroy()
 
-      // console.log('delete bookmark', bookmark)
-      // console.log('********************************')
+      console.log('delete bookmark', bookmark)
+      console.log('********************************')
       res.send(null)
     } catch (err) {
       res.status(500).send({

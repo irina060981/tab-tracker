@@ -1,25 +1,30 @@
 <template>
   <div>
     <v-layout>
-      <v-flex xs10 offset-xs1>
+      <v-flex xs6>
+          <songs-bookmarks />
+      </v-flex>
+
+      <v-flex xs6 class="ml-2">
           <song-search-panel />
+          <div class="mt-2">
+            <songs-panel />
+          </div>
       </v-flex>
+
     </v-layout>
-    <v-layout class="mt-2">
-      <v-flex xs10 offset-xs1>
-          <songs-panel />
-      </v-flex>
-    </v-layout>
+
   </div>
 </template>
 
 <script>
   import SongsPanel from '@/components/Songs/SongsPanel'
   import SongSearchPanel from '@/components/Songs/SongSearchPanel'
+  import SongsBookmarks from '@/components/Songs/SongsBookmarks'
 
   export default {
     components: {
-      SongsPanel, SongSearchPanel
+      SongsPanel, SongSearchPanel, SongsBookmarks
     }
   }
 </script>
