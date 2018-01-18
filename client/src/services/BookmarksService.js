@@ -3,7 +3,7 @@ import Api from '@/services/Api'
 export default {
   index (params) {
     return Api().get('bookmarks', {
-      params: { songId: params.songId, userId: params.userId }
+      params: params
     })
   },
   post (params) {

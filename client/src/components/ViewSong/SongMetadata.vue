@@ -47,7 +47,7 @@
         let bookmark = null
         if (this.$store.state.isUserLoggedIn) {
           bookmark = (await BookmarksService.index({
-            songId: this.song.id, userId: this.$store.state.user.id
+            songId: this.song.id
           })).data
 
           // console.log('bookmark', this.song.id, this.$store.state.user.id, bookmark)
@@ -59,7 +59,7 @@
       async setAsBookmark () {
         try {
           const bookmark = (await BookmarksService.post({
-            SongId: this.song.id, UserId: this.$store.state.user.id
+            SongId: this.song.id
           })).data
           this.bookmark = bookmark
           // console.log('bookmark - ', bookmark)

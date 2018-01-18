@@ -5,7 +5,8 @@ module.exports = {
   async index (req, res) {
     try {
       let bookmark
-      const {songId, userId} = req.query
+      const userId = req.user.id
+      const {songId} = req.query
       if (songId && userId) {
         bookmark = await Bookmark.findOne({
           where: {
@@ -41,16 +42,17 @@ module.exports = {
   },
   async post (req, res) {
     try {
-      const {UserId, SongId} = req.body
+      const userId = req.user.id
+      const {SongId} = req.body
       const checkBookmark = await Bookmark.findOne({
         where: {
           SongId: SongId,
-          UserId: UserId
+          UserId: userId
         }
       })
       if (!checkBookmark) {
         const bookmark = await Bookmark.create({
-          UserId: UserId,
+          UserId: userId,
           SongId: SongId
         })
         res.send(bookmark)
@@ -65,15 +67,18 @@ module.exports = {
   },
   async delete (req, res) {
     try {
-      console.log('********************************')
-      console.log('req.body', req.body)
-      console.log('id', parseInt(req.body.id))
+      const userId = req.user.id
+      const bookmark = await Bookmark.findOne({
+        UserId: userId,
+        id: req.body.id
+      })
 
-      const bookmark = await Bookmark.findById(req.body.id)
+      if (!bookmark) {
+        return res.status(403).send({
+          error: 'You don\'t have access to this bookmark'
+        })
+      }
       await bookmark.destroy()
-
-      console.log('delete bookmark', bookmark)
-      console.log('********************************')
       res.send(null)
     } catch (err) {
       res.status(500).send({

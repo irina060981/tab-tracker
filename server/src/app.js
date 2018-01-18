@@ -25,6 +25,7 @@ app.use(morgan('combined'))
 app.use(bodyParser.json())
 app.use(cors())
 
+require('./passport')
 require('./routes')(app)
 
 sequelize.sync() // сначала подключаемся к DB а потом запускаем сервер, sequelize.sync({force: true})  - это принудительная очистка
